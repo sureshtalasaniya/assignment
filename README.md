@@ -25,6 +25,32 @@ wget http://files.freeswitch.org/releases/freeswitch/freeswitch-1.6.19.tar.gz
 tar -xvzf freeswitch/freeswitch-1.6.19.tar.gz
 cd freeswitch-1.6.19
 
+# vim /usr/local/src/freeswitch-1.6.19/modules.conf
+
+applications/mod_commands
+applications/mod_dptools
+applications/mod_spandsp
+applications/mod_voicemail
+
+codecs/mod_g729
+codecs/mod_opus
+endpoints/mod_rtc
+endpoints/mod_sofia
+endpoints/mod_verto
+event_handlers/mod_event_socket
+formats/mod_local_stream
+formats/mod_native_file
+formats/mod_png
+formats/mod_sndfile
+formats/mod_tone_stream
+languages/mod_lua
+loggers/mod_console
+loggers/mod_logfile
+loggers/mod_syslog
+say/mod_say_en
+xml_int/mod_xml_cdr
+xml_int/mod_xml_rpc
+
 # The -j argument spawns multiple threads to speed the build process 
  ./rebootstrap.sh-j
 
@@ -83,28 +109,40 @@ ln /etc/init.d/freeswitch /usr/local/bin/fs
 
 #Load modify /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
 To Load modules in below order
-## Vim modules.conf.xml
 
-<load module="mod_console"/>
-<load module="mod_commands"/>
-<load module="mod_lua"/>
-<load module="mod_sofia"/>
-<load module="mod_logfile"/>
-<load module="mod_expr"/>
-<load module="mod_spandsp"/>
-<load module="mod_dptools"/>
-<load module="mod_event_socket"/>
-<load module="mod_native_file"/>
-<load module="mod_sndfile"/>
-<load module="mod_say_en"/>
-<load module="mod_local_stream"/>
-<load module="mod_tone_stream"/>
-<load module="mod_opus"/>
-<load module="mod_g729"/>
-<load module="mod_esf"/>
-<load module="mod_fsv"/>
+# vim /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
+
+<configuration name="modules.conf" description="Modules">
+  <modules>
+    <load module="mod_console"/>
+    <load module="mod_commands"/>
+    <load module="mod_lua"/>
+    <load module="mod_sofia"/>
+    <load module="mod_logfile"/>
+    <load module="mod_dptools"/>
+    <load module="mod_event_socket"/>
+    <load module="mod_native_file"/>
+    <load module="mod_sndfile"/>
+    <load module="mod_xml_cdr"/>
+    <load module="mod_rtc"/>
+    <load module="mod_verto"/>
+    <load module="mod_voicemail"/>
+    <load module="mod_esf"/>
+    <load module="mod_fsv"/>
+    <load module="mod_g729"/>
+    <load module="mod_amr"/> -->
+    <load module="mod_b64"/>
+    <load module="mod_opus"/>
+    <load module="mod_png"/>
+    <load module="mod_local_stream"/>
+    <load module="mod_tone_stream"/>
+    <load module="mod_say_en"/>
+  </modules>
+</configuration>
 
 # assignment
+
+# vim /usr/local/freeswitch/conf/vars.xml
 
 <include>
   <X-PRE-PROCESS cmd="set" data="default_password=zxsder45"/>
@@ -211,4 +249,39 @@ To Load modules in below order
 </include>
 
 
+# To registered User Using Below Details:
+
+SIP extension : 1000 
+Username: 1000
+Password : 123456
+
+Connect ON SIP Softphone : TCP/UDP 
+IP Address : 18.220.115.243
+Port : 5060
+
+//https://www.doubango.org/sipml5/expert.htm
+Connect ON SIP Webphone : WSS 
+IP Address : 18.220.115.243
+Port : 7443
+
+Connect ON SIP Webphone : WS
+IP Address : 18.220.115.243
+Port : 5061
+
+SIP extension : 1001
+Username: 1001
+Password : 123456
+
+Connect ON SIP Softphone : TCP/UDP 
+IP Address : 18.220.115.243
+Port : 5060
+
+//https://www.doubango.org/sipml5/expert.htm
+Connect ON SIP Webphone : WSS 
+IP Address : 18.220.115.243
+Port : 7443
+
+Connect ON SIP Webphone : WS
+IP Address : 18.220.115.243
+Port : 5061
 

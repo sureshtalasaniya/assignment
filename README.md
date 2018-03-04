@@ -1,3 +1,6 @@
+
+
+
 # Update System Basic Packages:
 apt-get update
 apt-get install wget
@@ -125,7 +128,6 @@ To Load modules in below order
     <load module="mod_sndfile"/>
     <load module="mod_xml_cdr"/>
     <load module="mod_rtc"/>
-    <load module="mod_verto"/>
     <load module="mod_voicemail"/>
     <load module="mod_esf"/>
     <load module="mod_fsv"/>
@@ -249,6 +251,11 @@ To Load modules in below order
 </include>
 
 
+#To Set in SIP Profile:
+<param name="rtcp-audio-interval-msec" value="5000"/>
+
+Keep only 1000.xml and 1001.xml in /usr/local/freeswitch/conf/directory/default/
+
 # To registered User Using Below Details:
 
 SIP extension : 1000 
@@ -259,14 +266,6 @@ Connect ON SIP Softphone : TCP/UDP
 IP Address : 18.220.115.243
 Port : 5060
 
-//https://www.doubango.org/sipml5/expert.htm
-Connect ON SIP Webphone : WSS 
-IP Address : 18.220.115.243
-Port : 7443
-
-Connect ON SIP Webphone : WS
-IP Address : 18.220.115.243
-Port : 5061
 
 SIP extension : 1001
 Username: 1001
@@ -276,12 +275,14 @@ Connect ON SIP Softphone : TCP/UDP
 IP Address : 18.220.115.243
 Port : 5060
 
-//https://www.doubango.org/sipml5/expert.htm
-Connect ON SIP Webphone : WSS 
-IP Address : 18.220.115.243
-Port : 7443
+#lua.conf.xml
 
-Connect ON SIP Webphone : WS
-IP Address : 18.220.115.243
-Port : 5061
+<hook event="RECV_RTCP_MESSAGE" subclass="" script="rtp_message.lua"/>
+
+
+
+#vim rtp_message.lua
+freeswitch.consoleLog("notice", "[demo] Params:\n" .. event:serialize() .. "\n");
+
+
 
